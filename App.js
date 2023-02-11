@@ -167,6 +167,7 @@ export default function App() {
                     width: width / 2,
                     height: width / 2,
                     resizeMode: "contain",
+                    borderRadius: 15,
                   }}
                 />
               </View>
