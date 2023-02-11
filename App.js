@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useCallback } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   Animated,
@@ -9,6 +9,13 @@ import {
   Dimensions,
   FlatList,
 } from "react-native";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+
+import Square from "./src/component/onboarding/Square";
+import Backdrop from "./src/component/onboarding/Backdrop";
+import { DATA } from "./src/constants/Data";
+import Indicator from "./src/component/onboarding/Indicator";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -16,127 +23,25 @@ const { width, height } = Dimensions.get("screen");
 // inspiration: https://dribbble.com/shots/11164698-Onboarding-screens-animation
 // https://twitter.com/mironcatalin/status/1321180191935373312
 
-const bgs = ["#A5BBFF", "#DDBEFE", "#FF63ED", "#B98EFF"];
-const DATA = [
-  {
-    key: "3571572",
-    title: "Multi-lateral intermediate moratorium",
-    description:
-      "I'll back up the multi-byte XSS matrix, that should feed the SCSI application!",
-    image: require("./assets/images/onboarding1.jpg"),
-  },
-  {
-    key: "3571747",
-    title: "Automated radical data-warehouse",
-    description:
-      "Use the optical SAS system, then you can navigate the auxiliary alarm!",
-    image: require("./assets/images/onboarding2.jpg"),
-  },
-  {
-    key: "3571680",
-    title: "Inverse attitude-oriented system engine",
-    description:
-      "The ADP array is down, compress the online sensor so we can input the HTTP panel!",
-    image: require("./assets/images/onboarding3.jpg"),
-  },
-  {
-    key: "3571603",
-    title: "Monitored global data-warehouse",
-    description: "We need to program the open-source IB interface!",
-    image: require("./assets/images/onboarding4.jpg"),
-  },
-];
-
-const Indicator = ({ scrollx }) => {
-  return (
-    <View style={{ position: "absolute", bottom: 100, flexDirection: "row" }}>
-      {DATA.map((_, i) => {
-        const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
-        const scale = scrollx.interpolate({
-          inputRange,
-          outputRange: [0.8, 1.4, 0.8],
-          extrapolate: "clamp",
-        });
-        const opacity = scrollx.interpolate({
-          inputRange,
-          outputRange: [0.6, 1, 0.6],
-          extrapolate: "clamp",
-        });
-        return (
-          <Animated.View
-            key={`indicator-${i}`}
-            style={{
-              height: 10,
-              width: 10,
-              borderRadius: 5,
-              backgroundColor: "#fff",
-              margin: 10,
-              opacity,
-              transform: [
-                {
-                  scale,
-                },
-              ],
-            }}
-          />
-        );
-      })}
-    </View>
-  );
-};
-
-const Backdrop = ({ scrollx }) => {
-  const backgroundColor = scrollx.interpolate({
-    inputRange: bgs.map((_, i) => i * width),
-    outputRange: bgs.map((bg) => bg),
-  });
-  return (
-    <Animated.View
-      style={[StyleSheet.absoluteFillObject, { backgroundColor }]}
-    />
-  );
-};
-
-const Square = ({ scrollx }) => {
-  const YOLO = Animated.modulo(
-    Animated.divide(Animated.modulo(scrollx, width), new Animated.Value(width)),
-    1
-  );
-
-  const rotate = YOLO.interpolate({
-    inputRange: [0, 0.5, 1],
-    outputRange: ["35deg", "0deg", "35deg"],
-  });
-  const translateX = YOLO.interpolate({
-    inputRange: [0, 0.5, 1],
-    outputRange: [0, -height, 0],
-  });
-  return (
-    <Animated.View
-      style={{
-        width: height,
-        height: height,
-        backgroundColor: "#fff",
-        borderRadius: 86,
-        position: "absolute",
-        top: -height * 0.6,
-        transform: [
-          {
-            rotate,
-          },
-          {
-            translateX,
-          },
-        ],
-      }}
-    />
-  );
-};
-
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    "Roboto-Bold": require("./assets/fonts/static/RobotoSlab-Bold.ttf"),
+  });
+
   const scrollx = React.useRef(new Animated.Value(0)).current;
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
+    <View style={styles.container} onLayout={onLayoutRootView}>
       <StatusBar hidden />
       <Backdrop scrollx={scrollx} />
       <Square scrollx={scrollx} />
@@ -173,7 +78,11 @@ export default function App() {
               </View>
               <View>
                 <Text
-                  style={{ fontSize: 24, fontWeight: "800", marginBottom: 10 }}
+                  style={{
+                    fontFamily: "Roboto-Bold",
+                    fontSize: 24,
+                    marginBottom: 10,
+                  }}
                 >
                   {item.title}
                 </Text>
