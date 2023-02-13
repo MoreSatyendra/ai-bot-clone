@@ -23,6 +23,7 @@ const Login = ({ navigation }) => {
           height: 250,
           resizeMode: "contain",
           borderRadius: 15,
+          marginVertical: 40,
         }}
       />
       {/* Welcome COntainer */}
@@ -32,10 +33,10 @@ const Login = ({ navigation }) => {
         >
           Let's Sign you in
         </Text>
-        <Text style={{ color: "white", fontSize: 16, marginTop: 5 }}>
+        <Text style={{ color: "white", fontSize: 16, marginTop: 10 }}>
           Welcome back.
         </Text>
-        <Text style={{ color: "white", fontSize: 18 }}>
+        <Text style={{ color: "white", fontSize: 13 }}>
           You've been missed!
         </Text>
       </View>
@@ -83,7 +84,7 @@ const Login = ({ navigation }) => {
       <View
         style={{
           position: "absolute",
-          bottom: 20,
+          bottom: 40,
           width: 320,
         }}
       >
@@ -146,6 +147,5 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#000",
     alignItems: "center",
-    justifyContent: "center",
   },
 });
