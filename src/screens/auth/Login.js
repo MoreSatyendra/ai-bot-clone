@@ -7,13 +7,16 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import loginImage from "../../../assets/images/Sign-in-bro.png";
 import { AntDesign } from "@expo/vector-icons";
+import LoadingIndicator from "../../component/LoadingIndicator";
 
 const { width, height } = Dimensions.get("screen");
 
 const Login = ({ navigation }) => {
+  const [visible, setVisible] = useState(false);
+
   return (
     <View style={styles.container}>
       <Image
@@ -40,6 +43,8 @@ const Login = ({ navigation }) => {
           You've been missed!
         </Text>
       </View>
+
+      {visible && <LoadingIndicator />}
       {/* Login Inputs */}
       <View
         style={{
@@ -116,7 +121,12 @@ const Login = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setVisible(!visible);
+            console.log("button Pressed " + visible);
+          }}
+        >
           <View
             style={{
               paddingVertical: 10,
