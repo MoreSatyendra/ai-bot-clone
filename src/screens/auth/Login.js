@@ -17,8 +17,8 @@ const { width, height } = Dimensions.get("screen");
 const Login = ({ navigation }) => {
   const [isVisible, setIsVisible] = useState(false);
 
-  const showLoading = () => {
-    setIsVisible(true);
+  const showLoading = (navigation) => {
+    navigation.navigate("Home");
   };
 
   return (
@@ -48,7 +48,7 @@ const Login = ({ navigation }) => {
             </View>
             <View style={styles.inputs}>
               <TextInput
-                placeholder="pass"
+                placeholder="password"
                 placeholderTextColor="grey"
                 style={{ color: "white" }}
               />
@@ -72,7 +72,11 @@ const Login = ({ navigation }) => {
             </View>
 
             {/* Sign In btn */}
-            <TouchableOpacity onPress={showLoading}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Home");
+              }}
+            >
               <View style={styles.signinBtnContainer}>
                 <Text style={styles.signBtnText}>Sign In</Text>
               </View>

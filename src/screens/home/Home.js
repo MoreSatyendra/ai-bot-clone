@@ -3,12 +3,19 @@ import React from "react";
 
 const Home = () => {
   return (
-    <View>
-      <Text>Home</Text>
+    <View style={styles.container}>
+      <Text style={{ color: "white" }}>Home</Text>
     </View>
   );
 };
 
 export default Home;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#000",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});

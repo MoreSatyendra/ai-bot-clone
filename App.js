@@ -14,6 +14,7 @@ import * as SplashScreen from "expo-splash-screen";
 
 import { NavigationContainer } from "@react-navigation/native";
 import AuthStack from "./src/navigation/AuthStack";
+import AppStack from "./src/navigation/Appstack";
 
 // https://www.flaticon.com/packs/retro-wave
 // inspiration: https://dribbble.com/shots/11164698-Onboarding-screens-animation

@@ -32,10 +32,7 @@ const Register = ({ navigation }) => {
           <AntDesign name="back" size={24} color="white" />
         </View>
       </TouchableOpacity>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ alignItems: "center" }}
-      >
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Image source={registerImage} style={styles.imgStyle} />
         {/* Register Container */}
         <View style={styles.signupContainer}>
@@ -58,14 +55,14 @@ const Register = ({ navigation }) => {
           </View>
           <View style={styles.inputs}>
             <TextInput
-              placeholder="pass"
+              placeholder="password"
               placeholderTextColor="grey"
               style={{ color: "white" }}
             />
           </View>
           <View style={styles.inputs}>
             <TextInput
-              placeholder="con-pass"
+              placeholder="confirm password"
               placeholderTextColor="grey"
               style={{ color: "white" }}
             />
@@ -76,7 +73,7 @@ const Register = ({ navigation }) => {
         <View style={styles.btnContainer}>
           <View style={styles.loginContainer}>
             <Text style={styles.loginContainerText}>
-              Already you've virtual friend?
+              Already you've account?
             </Text>
             <TouchableOpacity
               style={styles.loginBtn}
@@ -117,11 +114,10 @@ const styles = StyleSheet.create({
     height: 250,
     resizeMode: "contain",
     borderRadius: 15,
+    alignSelf: "center",
   },
   signupContainer: {
-    alignSelf: "flex-start",
-    marginHorizontal: 30,
-    marginTop: 40,
+    marginTop: 30,
   },
   signupText: { color: "white", fontFamily: "Roboto-Bold", fontSize: 22 },
   welcomeText: { color: "white", fontSize: 16, marginTop: 10 },
