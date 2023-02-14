@@ -64,7 +64,7 @@ const Login = ({ navigation }) => {
               <TouchableOpacity
                 style={styles.registerBtn}
                 onPress={() => {
-                  navigation.navigate("Register");
+                  navigation.push("Register");
                 }}
               >
                 <Text style={styles.registerText}>{"  "}Register</Text>
@@ -77,6 +77,12 @@ const Login = ({ navigation }) => {
                 <Text style={styles.signBtnText}>Sign In</Text>
               </View>
             </TouchableOpacity>
+            <Text style={styles.orText}>- OR -</Text>
+            <View style={styles.socialContainer}>
+              <AntDesign name="google" size={24} style={styles.iconStyle} />
+              <AntDesign name="github" size={24} style={styles.iconStyle} />
+              <AntDesign name="twitter" size={24} style={styles.iconStyle} />
+            </View>
           </View>
         </>
       )}
@@ -91,8 +97,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#000",
     alignItems: "center",
-    width: width,
-    height: height,
   },
   imgStyle: {
     width: 250,
@@ -118,8 +122,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   btnContainer: {
-    position: "absolute",
-    bottom: 40,
     width: 320,
   },
   registerContainer: {
@@ -144,5 +146,26 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Bold",
     fontSize: 14,
     textAlign: "center",
+  },
+  socialContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  iconStyle: {
+    borderWidth: 1,
+    borderColor: "grey",
+    paddingTop: 11.8,
+    paddingBottom: 10,
+    paddingLeft: 11.8,
+    paddingRight: 10,
+    borderRadius: 8,
+    marginHorizontal: 10,
+    color: "grey",
+  },
+  orText: {
+    color: "grey",
+    textAlign: "center",
+    paddingVertical: 15,
   },
 });

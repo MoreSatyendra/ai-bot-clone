@@ -5,6 +5,7 @@ import {
   View,
   Image,
   TextInput,
+  ScrollView,
 } from "react-native";
 import React from "react";
 import registerImage from "../../../assets/images/register-bro.png";
@@ -31,148 +32,74 @@ const Register = ({ navigation }) => {
           <AntDesign name="back" size={24} color="white" />
         </View>
       </TouchableOpacity>
-      <Image
-        source={registerImage}
-        style={{
-          width: 250,
-          height: 250,
-          resizeMode: "contain",
-          borderRadius: 15,
-        }}
-      />
-      {/* Register Container */}
-      <View
-        style={{
-          alignSelf: "flex-start",
-          marginHorizontal: 30,
-          marginTop: 40,
-        }}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ alignItems: "center" }}
       >
-        <Text
-          style={{ color: "white", fontFamily: "Roboto-Bold", fontSize: 22 }}
-        >
-          Let's Sign you up
-        </Text>
-        <Text style={{ color: "white", fontSize: 16, marginTop: 10 }}>
-          Create an Account.
-        </Text>
-        <Text style={{ color: "white", fontSize: 13 }}>
-          Your virtual friend is READY to talk!
-        </Text>
-      </View>
-
-      <View
-        style={{
-          marginVertical: 20,
-          width: 320,
-        }}
-      >
-        <View
-          style={{
-            borderWidth: 2,
-            borderColor: "grey",
-            borderRadius: 10,
-            paddingVertical: 5,
-            paddingHorizontal: 15,
-            marginBottom: 15,
-          }}
-        >
-          <TextInput
-            placeholder="Email"
-            placeholderTextColor="grey"
-            style={{ color: "white" }}
-          />
-        </View>
-        <View
-          style={{
-            borderWidth: 2,
-            borderColor: "grey",
-            borderRadius: 10,
-            paddingHorizontal: 15,
-            paddingVertical: 5,
-            marginBottom: 15,
-          }}
-        >
-          <TextInput
-            placeholder="pass"
-            placeholderTextColor="grey"
-            style={{ color: "white" }}
-          />
-        </View>
-        <View
-          style={{
-            borderWidth: 2,
-            borderColor: "grey",
-            borderRadius: 10,
-            paddingHorizontal: 15,
-            paddingVertical: 5,
-            marginBottom: 15,
-          }}
-        >
-          <TextInput
-            placeholder="con-pass"
-            placeholderTextColor="grey"
-            style={{ color: "white" }}
-          />
-        </View>
-      </View>
-
-      {/* Button containers */}
-      <View
-        style={{
-          position: "absolute",
-          bottom: 40,
-          width: 320,
-        }}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: 10,
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 14,
-              color: "grey",
-              textAlign: "center",
-            }}
-          >
-            Don't tell me. You just come here to explore?
+        <Image source={registerImage} style={styles.imgStyle} />
+        {/* Register Container */}
+        <View style={styles.signupContainer}>
+          <Text style={styles.signupText}>Let's Sign you up</Text>
+          <Text style={{ color: "white", fontSize: 16, marginTop: 10 }}>
+            Create an Account.
           </Text>
-          <TouchableOpacity
-            style={{ alignItems: "center", justifyContent: "center" }}
-            onPress={() => {
-              navigation.navigate("Register");
-            }}
-          >
-            <Text style={{ fontSize: 14, color: "white", textAlign: "center" }}>
-              {"  "}Sign In
-            </Text>
-          </TouchableOpacity>
+          <Text style={{ color: "white", fontSize: 13 }}>
+            Your virtual friend is READY to talk!
+          </Text>
         </View>
-        <TouchableOpacity>
-          <View
-            style={{
-              paddingVertical: 10,
-              backgroundColor: "white",
-              borderRadius: 2,
-            }}
-          >
-            <Text
-              style={{
-                fontFamily: "Roboto-Bold",
-                fontSize: 14,
-                textAlign: "center",
+
+        <View style={styles.inputsContainer}>
+          <View style={styles.inputs}>
+            <TextInput
+              placeholder="Email"
+              placeholderTextColor="grey"
+              style={{ color: "white" }}
+            />
+          </View>
+          <View style={styles.inputs}>
+            <TextInput
+              placeholder="pass"
+              placeholderTextColor="grey"
+              style={{ color: "white" }}
+            />
+          </View>
+          <View style={styles.inputs}>
+            <TextInput
+              placeholder="con-pass"
+              placeholderTextColor="grey"
+              style={{ color: "white" }}
+            />
+          </View>
+        </View>
+
+        {/* Button containers */}
+        <View style={styles.btnContainer}>
+          <View style={styles.loginContainer}>
+            <Text style={styles.loginContainerText}>
+              Already you've virtual friend?
+            </Text>
+            <TouchableOpacity
+              style={styles.loginBtn}
+              onPress={() => {
+                navigation.navigate("Login");
               }}
             >
-              Sign Up
-            </Text>
+              <Text style={styles.loginBtnText}>{"  "}Sign In</Text>
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity>
+            <View style={styles.signupBtn}>
+              <Text style={styles.signupBtnText}>Sign Up</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.orText}>- OR -</Text>
+        <View style={styles.socialContainer}>
+          <AntDesign name="google" size={24} style={styles.iconStyle} />
+          <AntDesign name="github" size={24} style={styles.iconStyle} />
+          <AntDesign name="twitter" size={24} style={styles.iconStyle} />
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -184,5 +111,78 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#000",
     alignItems: "center",
+  },
+  imgStyle: {
+    width: 250,
+    height: 250,
+    resizeMode: "contain",
+    borderRadius: 15,
+  },
+  signupContainer: {
+    alignSelf: "flex-start",
+    marginHorizontal: 30,
+    marginTop: 40,
+  },
+  signupText: { color: "white", fontFamily: "Roboto-Bold", fontSize: 22 },
+  welcomeText: { color: "white", fontSize: 16, marginTop: 10 },
+  subText: { color: "white", fontSize: 13 },
+  inputsContainer: {
+    marginVertical: 20,
+    width: 320,
+  },
+  inputs: {
+    borderWidth: 2,
+    borderColor: "grey",
+    borderRadius: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    marginBottom: 15,
+  },
+  btnContainer: {
+    width: 320,
+  },
+  loginContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 10,
+  },
+  loginContainerText: {
+    fontSize: 14,
+    color: "grey",
+    textAlign: "center",
+  },
+  loginBtn: { alignItems: "center", justifyContent: "center" },
+  loginBtnText: { fontSize: 14, color: "white", textAlign: "center" },
+  signupBtn: {
+    paddingVertical: 10,
+    backgroundColor: "white",
+    borderRadius: 2,
+  },
+  signupBtnText: {
+    fontFamily: "Roboto-Bold",
+    fontSize: 14,
+    textAlign: "center",
+  },
+  socialContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  iconStyle: {
+    borderWidth: 1,
+    borderColor: "grey",
+    paddingTop: 11.8,
+    paddingBottom: 10,
+    paddingLeft: 11.8,
+    paddingRight: 10,
+    borderRadius: 8,
+    marginHorizontal: 10,
+    color: "grey",
+  },
+  orText: {
+    color: "grey",
+    textAlign: "center",
+    paddingVertical: 15,
   },
 });
