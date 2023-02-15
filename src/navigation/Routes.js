@@ -10,16 +10,18 @@ const Routes = () => {
   const { user, setUser } = useContext(AuthContext);
   const [initializing, setInitializing] = useState(true);
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setUser(user);
-      const uid = user.uid;
-      console.log("user Id " + uid);
-    } else {
-      setUser(null);
-      console.log("user sign out");
-    }
-  });
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        const uid = user.uid;
+        console.log("user Id " + uid);
+      } else {
+        setUser(null);
+        console.log("user sign out");
+      }
+    });
+  }, [user]);
 
   return (
     <NavigationContainer>

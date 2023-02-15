@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  ScrollView,
 } from "react-native";
 import React, { useState, useContext } from "react";
 import loginImage from "../../../assets/images/Sign-in-bro.png";
@@ -33,73 +34,75 @@ const Login = ({ navigation }) => {
         </View>
       ) : (
         <>
-          <Image source={loginImage} style={styles.imgStyle} />
-          {/* Welcome COntainer */}
-          <View style={styles.welcomeContainer}>
-            <Text style={styles.signText}>Let's Sign you in</Text>
-            <Text style={styles.welcomeText}>Welcome back.</Text>
-            <Text style={styles.subText}>You've been missed!</Text>
-          </View>
-
-          {/* Login Inputs */}
-          <View style={styles.inputsContainer}>
-            <View style={styles.inputs}>
-              <TextInput
-                placeholder="Email"
-                placeholderTextColor="grey"
-                style={{ color: "white" }}
-                value={email}
-                onChangeText={(text) => {
-                  setEmail(text);
-                }}
-              />
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <Image source={loginImage} style={styles.imgStyle} />
+            {/* Welcome COntainer */}
+            <View style={styles.welcomeContainer}>
+              <Text style={styles.signText}>Let's Sign you in</Text>
+              <Text style={styles.welcomeText}>Welcome back.</Text>
+              <Text style={styles.subText}>You've been missed!</Text>
             </View>
-            <View style={styles.inputs}>
-              <TextInput
-                placeholder="password"
-                placeholderTextColor="grey"
-                style={{ color: "white" }}
-                value={password}
-                onChangeText={(text) => {
-                  setPassword(text);
-                }}
-              />
-            </View>
-          </View>
 
-          {/* Button containers */}
-          <View style={styles.btnContainer}>
-            <View style={styles.registerContainer}>
-              <Text style={styles.registerTitle}>
-                Wait! Are you NEW to app?
-              </Text>
+            {/* Login Inputs */}
+            <View style={styles.inputsContainer}>
+              <View style={styles.inputs}>
+                <TextInput
+                  placeholder="Email"
+                  placeholderTextColor="grey"
+                  style={{ color: "white" }}
+                  value={email}
+                  onChangeText={(text) => {
+                    setEmail(text);
+                  }}
+                />
+              </View>
+              <View style={styles.inputs}>
+                <TextInput
+                  placeholder="password"
+                  placeholderTextColor="grey"
+                  style={{ color: "white" }}
+                  value={password}
+                  onChangeText={(text) => {
+                    setPassword(text);
+                  }}
+                />
+              </View>
+            </View>
+
+            {/* Button containers */}
+            <View style={styles.btnContainer}>
+              <View style={styles.registerContainer}>
+                <Text style={styles.registerTitle}>
+                  Wait! Are you NEW to app?
+                </Text>
+                <TouchableOpacity
+                  style={styles.registerBtn}
+                  onPress={() => {
+                    navigation.push("Register");
+                  }}
+                >
+                  <Text style={styles.registerText}>{"  "}Register</Text>
+                </TouchableOpacity>
+              </View>
+
+              {/* Sign In btn */}
               <TouchableOpacity
-                style={styles.registerBtn}
                 onPress={() => {
-                  navigation.push("Register");
+                  login(email, password);
                 }}
               >
-                <Text style={styles.registerText}>{"  "}Register</Text>
+                <View style={styles.signinBtnContainer}>
+                  <Text style={styles.signBtnText}>Sign In</Text>
+                </View>
               </TouchableOpacity>
-            </View>
-
-            {/* Sign In btn */}
-            <TouchableOpacity
-              onPress={() => {
-                login(email, password);
-              }}
-            >
-              <View style={styles.signinBtnContainer}>
-                <Text style={styles.signBtnText}>Sign In</Text>
+              <Text style={styles.orText}>- OR -</Text>
+              <View style={styles.socialContainer}>
+                <AntDesign name="google" size={24} style={styles.iconStyle} />
+                <AntDesign name="github" size={24} style={styles.iconStyle} />
+                <AntDesign name="twitter" size={24} style={styles.iconStyle} />
               </View>
-            </TouchableOpacity>
-            <Text style={styles.orText}>- OR -</Text>
-            <View style={styles.socialContainer}>
-              <AntDesign name="google" size={24} style={styles.iconStyle} />
-              <AntDesign name="github" size={24} style={styles.iconStyle} />
-              <AntDesign name="twitter" size={24} style={styles.iconStyle} />
             </View>
-          </View>
+          </ScrollView>
         </>
       )}
     </View>
@@ -119,9 +122,10 @@ const styles = StyleSheet.create({
     height: 250,
     resizeMode: "contain",
     borderRadius: 15,
-    marginVertical: 40,
+    marginVertical: 30,
+    alignSelf: "center",
   },
-  welcomeContainer: { alignSelf: "flex-start", marginHorizontal: 30 },
+  welcomeContainer: { alignSelf: "flex-start" },
   signText: { color: "white", fontFamily: "Roboto-Bold", fontSize: 22 },
   welcomeText: { color: "white", fontSize: 16, marginTop: 10 },
   subText: { color: "white", fontSize: 13 },
