@@ -1,20 +1,25 @@
 import { View, Text } from "react-native";
 import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Login, Home, Register } from "../screens";
+import CustomDrawer from "../component/CustomDrawer";
 
-const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 const AppStack = () => {
   return (
-    <Stack.Navigator
+    <Drawer.Navigator
       screenOptions={{
         headerShown: false,
-        animation: "slide_from_right",
+        drawerType: "back",
+        drawerActiveTintColor: "#3d0000",
+        drawerActiveBackgroundColor: "#950101",
       }}
+      drawerContent={(props) => <CustomDrawer {...props} />}
     >
-      <Stack.Screen name="Home" component={Home} />
-    </Stack.Navigator>
+      <Drawer.Screen name="Home" component={Home} />
+      {/* <Drawer.Screen name="Article" /> */}
+    </Drawer.Navigator>
   );
 };
 
