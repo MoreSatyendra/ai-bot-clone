@@ -7,11 +7,15 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
-import React from "react";
+import React, { useState, useContext } from "react";
 import registerImage from "../../../assets/images/register-bro.png";
 import { AntDesign } from "@expo/vector-icons";
+import { AuthContext } from "../../navigation/AuthProvider";
 
 const Register = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { register } = useContext(AuthContext);
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -51,6 +55,10 @@ const Register = ({ navigation }) => {
               placeholder="Email"
               placeholderTextColor="grey"
               style={{ color: "white" }}
+              value={email}
+              onChangeText={(text) => {
+                setEmail(text);
+              }}
             />
           </View>
           <View style={styles.inputs}>
@@ -58,6 +66,10 @@ const Register = ({ navigation }) => {
               placeholder="password"
               placeholderTextColor="grey"
               style={{ color: "white" }}
+              value={password}
+              onChangeText={(text) => {
+                setPassword(text);
+              }}
             />
           </View>
           <View style={styles.inputs}>
@@ -84,7 +96,7 @@ const Register = ({ navigation }) => {
               <Text style={styles.loginBtnText}>{"  "}Sign In</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => register(email, password)}>
             <View style={styles.signupBtn}>
               <Text style={styles.signupBtnText}>Sign Up</Text>
             </View>

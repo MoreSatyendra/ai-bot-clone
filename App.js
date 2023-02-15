@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   Animated,
@@ -11,14 +11,7 @@ import {
 } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-
-import { NavigationContainer } from "@react-navigation/native";
-import AuthStack from "./src/navigation/AuthStack";
-import AppStack from "./src/navigation/Appstack";
-
-// https://www.flaticon.com/packs/retro-wave
-// inspiration: https://dribbble.com/shots/11164698-Onboarding-screens-animation
-// https://twitter.com/mironcatalin/status/1321180191935373312
+import Providers from "./src/navigation";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -35,11 +28,7 @@ export default function App() {
     return null;
   }
 
-  return (
-    <NavigationContainer>
-      <AuthStack />
-    </NavigationContainer>
-  );
+  return <Providers />;
 }
 
 const styles = StyleSheet.create({

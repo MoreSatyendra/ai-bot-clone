@@ -7,15 +7,19 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import loginImage from "../../../assets/images/Sign-in-bro.png";
 import { AntDesign } from "@expo/vector-icons";
 import LoadingIndicator from "../../component/LoadingIndicator";
+import { AuthContext } from "../../navigation/AuthProvider";
 
 const { width, height } = Dimensions.get("screen");
 
 const Login = ({ navigation }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { login } = useContext(AuthContext);
 
   const showLoading = (navigation) => {
     navigation.navigate("Home");
@@ -44,6 +48,10 @@ const Login = ({ navigation }) => {
                 placeholder="Email"
                 placeholderTextColor="grey"
                 style={{ color: "white" }}
+                value={email}
+                onChangeText={(text) => {
+                  setEmail(text);
+                }}
               />
             </View>
             <View style={styles.inputs}>
@@ -51,6 +59,10 @@ const Login = ({ navigation }) => {
                 placeholder="password"
                 placeholderTextColor="grey"
                 style={{ color: "white" }}
+                value={password}
+                onChangeText={(text) => {
+                  setPassword(text);
+                }}
               />
             </View>
           </View>
@@ -74,7 +86,7 @@ const Login = ({ navigation }) => {
             {/* Sign In btn */}
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("Home");
+                login(email, password);
               }}
             >
               <View style={styles.signinBtnContainer}>
