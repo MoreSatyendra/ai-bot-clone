@@ -14,7 +14,7 @@ export const DATA = [
     title: "Automated radical data-warehouse",
     description:
       "Use the optical SAS system, then you can navigate the auxiliary alarm!",
-    image: require("../../assets/images/onboarding2.jpg"),
+    image: require("../../assets/images/onboarding2.jpeg"),
     shadowColor: "#DDBEFE",
   },
   {
@@ -22,13 +22,14 @@ export const DATA = [
     title: "Inverse attitude-oriented system engine",
     description:
       "The ADP array is down, compress the online sensor so we can input the HTTP panel!",
-    image: require("../../assets/images/onboarding3.jpg"),
+    image: require("../../assets/images/onboarding3.jpeg"),
     shadowColor: "#FF63ED",
   },
   {
     key: "3571603",
     title: "Monitored global data-warehouse",
-    description: "We need to program the open-source IB interface!",
+    description:
+      "We need to program the open-source IB interface! we can input the HTTP panel",
     image: require("../../assets/images/onboarding4.jpg"),
     shadowColor: "#B98EFF",
   },

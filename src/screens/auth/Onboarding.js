@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   Animated,
@@ -10,7 +10,8 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import { bgs, DATA } from "../../constants/Data";
+import { AntDesign } from "@expo/vector-icons";
+import { DATA } from "../../constants/Data";
 import Indicator from "../../component/onboarding/Indicator";
 
 const { width, height } = Dimensions.get("screen");
@@ -19,6 +20,16 @@ const ITEM_HEIGHT = ITEM_WIDTH * 1.47;
 
 const Onboarding = ({ navigation }) => {
   const scrollx = React.useRef(new Animated.Value(0)).current;
+  const [value, setValue] = useState(0);
+  const [showButton, setShowButton] = useState(false);
+
+  const onScrollEnd = (event) => {
+    if (event.nativeEvent.contentOffset.x === width * (DATA.length - 1)) {
+      setShowButton(true);
+    } else {
+      setShowButton(false);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -32,6 +43,10 @@ const Onboarding = ({ navigation }) => {
         )}
         pagingEnabled
         showsHorizontalScrollIndicator={false}
+        onMomentumScrollEnd={onScrollEnd}
+        onMomentumScrollBegin={() => {
+          setShowButton(false);
+        }}
         keyExtractor={(item) => item.key}
         renderItem={({ item, index }) => {
           const inputRange = [
@@ -62,12 +77,12 @@ const Onboarding = ({ navigation }) => {
               </Text>
               <View
                 style={{
-                  width: ITEM_WIDTH + 50,
-                  // height: ITEM_HEIGHT,
+                  width: ITEM_WIDTH + 60,
+                  height: ITEM_HEIGHT,
                   overflow: "hidden",
                   borderRadius: 18,
-                  elevation: 20,
-                  shadowColor: `${item.shadowColor}`,
+                  borderWidth: 5,
+                  borderColor: `white`,
                 }}
               >
                 <Animated.Image
@@ -102,6 +117,28 @@ const Onboarding = ({ navigation }) => {
           );
         }}
       />
+      {showButton && (
+        <TouchableOpacity
+          style={{
+            padding: 10,
+            borderRadius: 30,
+            backgroundColor: "black",
+            position: "absolute",
+            bottom: 20,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            borderWidth: 2,
+            borderColor: "grey",
+            elevation: 32,
+            shadowColor: `#00ffff`,
+            shadowOpacity: 0.3,
+          }}
+          onPress={() => navigation.navigate("Login")}
+        >
+          <Text style={{ color: "white", marginHorizontal: 10 }}>Hop In</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
