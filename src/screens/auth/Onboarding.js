@@ -10,107 +10,98 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
-import Backdrop from "../../component/onboarding/Backdrop";
-import Square from "../../component/onboarding/Square";
-import { DATA } from "../../constants/Data";
+import { bgs, DATA } from "../../constants/Data";
 import Indicator from "../../component/onboarding/Indicator";
 
 const { width, height } = Dimensions.get("screen");
+const ITEM_WIDTH = width * 0.76;
+const ITEM_HEIGHT = ITEM_WIDTH * 1.47;
 
 const Onboarding = ({ navigation }) => {
   const scrollx = React.useRef(new Animated.Value(0)).current;
-  const [showButton, setShowButton] = React.useState(false);
-
-  const onScrollEnd = (event) => {
-    if (event.nativeEvent.contentOffset.x === width * (DATA.length - 1)) {
-      setShowButton(true);
-    } else {
-      setShowButton(false);
-    }
-  };
 
   return (
     <View style={styles.container}>
       <StatusBar hidden />
-      <Backdrop scrollx={scrollx} />
-      <Square scrollx={scrollx} />
       <Animated.FlatList
         data={DATA}
-        keyExtractor={(item) => item.key}
         horizontal
-        pagingEnabled
-        scrollEventThrottle={32}
-        onMomentumScrollEnd={onScrollEnd}
-        onMomentumScrollBegin={() => {
-          setShowButton(false);
-        }}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { x: scrollx } } }],
-          { useNativeDriver: false }
+          { useNativeDriver: true }
         )}
+        pagingEnabled
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 100 }}
-        renderItem={({ item }) => {
+        keyExtractor={(item) => item.key}
+        renderItem={({ item, index }) => {
+          const inputRange = [
+            (index - 1) * width,
+            index * width,
+            (index + 1) * width,
+          ];
+          const translateX = scrollx.interpolate({
+            inputRange,
+            outputRange: [-width * 0.7, 0, width * 0.7],
+          });
           return (
-            <View style={{ width, alignItems: "center", padding: 20 }}>
-              <View
+            <View
+              style={{
+                width,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text
                 style={{
-                  flex: 0.7,
-                  justifyContent: "center",
+                  color: "white",
+                  fontFamily: "Roboto-Bold",
+                  marginBottom: 20,
                 }}
               >
-                <Image
+                {item.title}
+              </Text>
+              <View
+                style={{
+                  width: ITEM_WIDTH + 50,
+                  // height: ITEM_HEIGHT,
+                  overflow: "hidden",
+                  borderRadius: 18,
+                  elevation: 20,
+                  shadowColor: `${item.shadowColor}`,
+                }}
+              >
+                <Animated.Image
                   source={item.image}
                   style={{
-                    width: width / 2,
-                    height: width / 2,
-                    resizeMode: "contain",
-                    borderRadius: 15,
+                    width: ITEM_WIDTH * 1.4,
+                    height: ITEM_HEIGHT,
+                    alignSelf: "center",
+                    resizeMode: "cover",
+                    transform: [
+                      {
+                        translateX,
+                      },
+                    ],
                   }}
                 />
               </View>
-              <View>
-                <Text
-                  style={{
-                    fontFamily: "Roboto-Bold",
-                    fontSize: 24,
-                    marginBottom: 10,
-                  }}
-                >
-                  {item.title}
-                </Text>
-                <Text style={{ fontWeight: "300" }}>{item.description}</Text>
+              <View style={{ alignItems: "center" }}>
+                <Indicator scrollx={scrollx} />
               </View>
+              <Text
+                style={{
+                  color: "grey",
+                  textAlign: "center",
+                  marginTop: 30,
+                  marginHorizontal: 20,
+                }}
+              >
+                {item.description}
+              </Text>
             </View>
           );
         }}
       />
-      <Indicator scrollx={scrollx} />
-      {showButton && (
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("Login");
-          }}
-        >
-          <View
-            style={{
-              backgroundColor: "transparent",
-              width: width - 20,
-              padding: 20,
-              marginBottom: 15,
-              borderWidth: 1,
-              borderRadius: 10,
-              borderColor: "white",
-            }}
-          >
-            <Text style={{ textAlign: "center", fontSize: 18, color: "white" }}>
-              Hop In
-            </Text>
-          </View>
-        </TouchableOpacity>
-      )}
     </View>
   );
 };
@@ -120,7 +111,7 @@ export default Onboarding;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#000",
     alignItems: "center",
     justifyContent: "center",
   },

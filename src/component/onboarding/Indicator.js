@@ -5,7 +5,7 @@ const { width, height } = Dimensions.get("screen");
 
 const Indicator = ({ scrollx }) => {
   return (
-    <View style={{ position: "absolute", bottom: 100, flexDirection: "row" }}>
+    <View style={{ flexDirection: "row" }}>
       {DATA.map((_, i) => {
         const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
         const scale = scrollx.interpolate({
